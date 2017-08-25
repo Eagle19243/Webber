@@ -43,4 +43,4 @@ const server = new Server(compiler, Object.assign({
   publicPath: compiler.options.publicPath
 }, devServerOptions))
 
-server.listen(port, host)
+server.listen(port)
