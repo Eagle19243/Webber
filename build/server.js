@@ -13,7 +13,7 @@ const app = express()
 
 const devServerOptions = Object.assign({}, webpackConfig.devServer, config.devServer)
 
-const host = "https://social-space-webber.herokuapp.com/"
+const host = devServerOptions.host
 const port = devServerOptions.port
 
 webpackConfig.entry.client = [
@@ -41,4 +41,6 @@ const server = new Server(compiler, Object.assign({
   publicPath: compiler.options.publicPath
 }, devServerOptions))
 
+console.log("Port-", port);
+console.log("Host-", host);
 server.listen(port, host)
