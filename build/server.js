@@ -25,12 +25,12 @@ webpackConfig.plugins.push(new LogPlugin({ host, port }))
 
 let compiler
 
-try {
-  compiler = webpack(webpackConfig)
-} catch (err) {
-  console.log(err.message)
-  process.exit(1)
-}
+// try {
+//   compiler = webpack(webpackConfig)
+// } catch (err) {
+//   console.log(err.message)
+//   process.exit(1)
+// }
 
 const server = new Server(compiler, Object.assign({
   noInfo: true,
