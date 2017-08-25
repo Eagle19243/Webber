@@ -9,6 +9,8 @@ const webpackConfig = require('./webpack.dev')
 const config = require('./config')
 const LogPlugin = require('./log-plugin')
 
+process.env.NODE_ENV = 'production';
+
 const app = express()
 
 const devServerOptions = Object.assign({}, webpackConfig.devServer, config.devServer)
@@ -27,21 +29,18 @@ let compiler
 
 try {
   compiler = webpack(webpackConfig)
-  const server = new Server(compiler, Object.assign({
-    noInfo: true,
-    hot: true,
-    historyApiFallback: true,
-    overlay: true,
-    disableHostCheck: true,
-    publicPath: compiler.options.publicPath
-  }, devServerOptions));
-
-  console.log("Port-", port);
-  console.log("Host-", host);
-  server.listen(port, host);
 } catch (err) {
   console.log(err.message)
   process.exit(1)
 }
 
+const server = new Server(compiler, Object.assign({
+  noInfo: true,
+  hot: true,
+  historyApiFallback: true,
+  overlay: true,
+  disableHostCheck: true,
+  publicPath: compiler.options.publicPath
+}, devServerOptions))
 
+server.listen(port, host)
