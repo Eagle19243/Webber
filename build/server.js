@@ -9,8 +9,6 @@ const webpackConfig = require('./webpack.dev')
 const config = require('./config')
 const LogPlugin = require('./log-plugin')
 
-process.env.NODE_ENV = 'production';
-
 const app = express()
 
 const devServerOptions = Object.assign({}, webpackConfig.devServer, config.devServer)
@@ -43,4 +41,4 @@ const server = new Server(compiler, Object.assign({
   publicPath: compiler.options.publicPath
 }, devServerOptions))
 
-server.listen(port)
+server.listen(process.env.PORT || port);
