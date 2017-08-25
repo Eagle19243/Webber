@@ -25,22 +25,23 @@ webpackConfig.plugins.push(new LogPlugin({ host, port }))
 
 let compiler
 
-// try {
-//   compiler = webpack(webpackConfig)
-// } catch (err) {
-//   console.log(err.message)
-//   process.exit(1)
-// }
+try {
+  compiler = webpack(webpackConfig)
+  const server = new Server(compiler, Object.assign({
+    noInfo: true,
+    hot: true,
+    historyApiFallback: true,
+    overlay: true,
+    disableHostCheck: true,
+    publicPath: compiler.options.publicPath
+  }, devServerOptions));
 
-const server = new Server(compiler, Object.assign({
-  noInfo: true,
-  hot: true,
-  historyApiFallback: true,
-  overlay: true,
-  disableHostCheck: true,
-  publicPath: compiler.options.publicPath
-}, devServerOptions))
+  console.log("Port-", port);
+  console.log("Host-", host);
+  server.listen(port, host);
+} catch (err) {
+  console.log(err.message)
+  process.exit(1)
+}
 
-console.log("Port-", port);
-console.log("Host-", host);
-server.listen(port, host)
+
